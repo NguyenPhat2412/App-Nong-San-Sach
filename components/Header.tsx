@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, Pressable } from 'react-native';
 
 interface HeaderProps {
   search: string;
@@ -8,6 +9,7 @@ interface HeaderProps {
 
 export default function Header({ search, setSearch }: HeaderProps) {
   const [openMenu, setOpenMenu] = useState(false);
+  const navigation = useNavigation();
 
   return (
     <View className="bg-green-700 p-4">
@@ -36,10 +38,37 @@ export default function Header({ search, setSearch }: HeaderProps) {
       {/* Menu dropdown */}
       {openMenu && (
         <View className="mt-3 rounded bg-white p-3">
-          <Text className="py-1 text-green-700">🏠 Trang Chủ</Text>
-          <Text className="py-1 text-green-700">🛒 Giỏ Hàng</Text>
-          <Text className="py-1 text-green-700">❤️ Yêu Thích</Text>
-          <Text className="py-1 text-green-700">📞 Liên Hệ</Text>
+          <Pressable
+            onPress={() => {
+              setOpenMenu(false);
+              navigation.navigate('Home' as never);
+            }}>
+            <Text className="py-1 text-green-700">🏠 Trang Chủ</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => {
+              setOpenMenu(false);
+              navigation.navigate('Cart' as never);
+            }}>
+            <Text className="py-1 text-green-700">🛒 Giỏ Hàng</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => {
+              setOpenMenu(false);
+              navigation.navigate('Favorites' as never);
+            }}>
+            <Text className="py-1 text-green-700">❤️ Yêu Thích</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => {
+              setOpenMenu(false);
+              navigation.navigate('Contact' as never);
+            }}>
+            <Text className="py-1 text-green-700">📞 Liên Hệ</Text>
+          </Pressable>
         </View>
       )}
     </View>
